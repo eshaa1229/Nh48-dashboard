@@ -17,6 +17,7 @@ Rule used everywhere: if something is not in a file, it is not shown.
 """
 import json
 from pathlib import Path
+from whatif import render_whatif, render_limits
 
 import pandas as pd
 import plotly.express as px
@@ -322,7 +323,7 @@ with tabs[2]:
 # PLACEHOLDERS (no fake content)
 # ============================================================================
 with tabs[3]:
-    st.info("What-if simulator: planned for a later phase. No content yet.")
+    render_whatif(seg, factors, DATA_DIR)
 with tabs[4]:
     st.info("Future-blackspot prediction model: planned for a later phase. No content yet.")
 
@@ -343,6 +344,7 @@ with tabs[5]:
 - **MoRTH-criteria screening** uses 5 fatal/grievous crashes or 10 deaths per 500 m over 3 years. It is a rule-based screen, not a risk index.
 - **Data:** university crash data, calendar years 2023-2025, about 39 km of NH-48, fixed 500 m segments (last segment shorter).
 """)
+    render_limits()
     if geo_crash_total is not None and geo_crash_total != int(seg["total_accidents"].sum()):
         st.warning(
             f"Data note: the geometry file's crash_count adds up to {geo_crash_total}, while the "
